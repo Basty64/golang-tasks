@@ -27,7 +27,7 @@ func (a Action) DoAction() {
 //Метод DoAction в Action использует метод Greet из Human,
 //показывая, как встраивание позволяет реализовать функциональность, похожую на наследование.
 
-func Example1() {
+func Check() {
 
 	action := Action{
 		Human: Human{

@@ -1,13 +1,13 @@
 package main
 
 import (
+	"golang-tasks/L1/tasks/task_01"
 	"golang-tasks/L1/tasks/task_02"
 	"golang-tasks/L1/tasks/task_03"
 )
 
 func main() {
-	//tasks.Example1()
-	//tasks.Example2()
+	task_01.Check()
 	task_02.Check()
-	task_03.Ex3()
+	task_03.Check()
 }
