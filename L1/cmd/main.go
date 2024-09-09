@@ -1,9 +1,9 @@
 package main
 
 import (
-	"golang-tasks/L1/tasks/task_01"
-	"golang-tasks/L1/tasks/task_02"
-	"golang-tasks/L1/tasks/task_03"
+	"golang-tasks/L1/tasks/task-01"
+	"golang-tasks/L1/tasks/task-02"
+	"golang-tasks/L1/tasks/task-03"
 )
 
 func main() {
