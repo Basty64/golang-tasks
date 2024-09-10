@@ -6,17 +6,6 @@ import (
 	"sync"
 )
 
-func Example2() {
-	a := [5]int{2, 4, 6, 8, 10}
-
-	for i := range a {
-		go func() {
-			a[i] = a[i] * a[i]
-		}()
-	}
-	fmt.Println(a)
-}
-
 func square(n int, resultChan chan int) {
 	resultChan <- n * n
 }

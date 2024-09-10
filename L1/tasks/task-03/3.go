@@ -32,7 +32,7 @@ func Check() {
 		// Суммируем значения из канала
 		sum += <-resultChan
 	}
-	fmt.Printf(" Итоговое значение: %d", sum)
+	fmt.Printf("Итоговое значение суммы: %d", sum)
 }
 
 func square(n int, resultChan chan int) {
