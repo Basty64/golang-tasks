@@ -1,4 +1,4 @@
-package task_06
+package main
 
 import (
 	"context"
@@ -7,13 +7,15 @@ import (
 	"time"
 )
 
-func Check() {
-	//CxtTimeOut() //способ с помощью контекста с таймером
-	//CtxCancel() // с помощью контекста с отменой
-	//Timer() //  с помощью таймера
-	//Channel() // с помощью канала
-	//Mutex() //с помощью Mutex
-	//WaitGroup() //с помощью WaitGroup
+//Реализовать все возможные способы остановки выполнения горутины.
+
+func main() {
+	CxtTimeOut() //способ с помощью контекста с таймером
+	CtxCancel()  // с помощью контекста с отменой
+	Timer()      //  с помощью таймера
+	Channel()    // с помощью канала
+	Mutex()      //с помощью Mutex
+	WaitGroup()  //с помощью WaitGroup
 }
 
 func CxtTimeOut() {

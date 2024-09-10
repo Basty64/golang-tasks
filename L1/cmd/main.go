@@ -2,22 +2,13 @@ package main
 
 import (
 	"fmt"
-	task_04 "golang-tasks/L1/tasks/task-04"
 	"os"
 )
 
 func main() {
-	//task_01.Check()
-	//task_02.Check()
-	//task_03.Check()
-	task_04.Che()
-	//task_06.Check()
-	//task_07.Check()
-	//task_08.Check()
-	//task_09.Check()
-	//task_10.Check()
-	//task_11.Check()
-	//task_12.Check()
+
+	createFolders()
+
 }
 
 func createFolders() {
@@ -32,14 +23,18 @@ func createFolders() {
 
 	// Создаем папки и файлы
 	for i := 7; i <= n; i++ {
-		folderName := fmt.Sprintf("task-%d", i)
+		var folderName string
+		if i < 10 {
+			folderName = fmt.Sprintf("task-0%d", i)
+		} else {
+			folderName = fmt.Sprintf("task-%d", i)
+		}
 		folderPath := path + "/" + folderName
-
 		// Создаем папку
 		err := os.Mkdir(folderPath, 0755)
+
 		if err != nil {
 			fmt.Println("Ошибка при создании папки:", err)
-			return
 		}
 
 		// Создаем файл .go
@@ -57,9 +52,9 @@ func createFolders() {
 		_, err = file.WriteString(fmt.Sprintf(`package main
 
 func main() {
-    // Это файл %d
+
 }
-`, i))
+`))
 		if err != nil {
 			fmt.Println("Ошибка при записи в файл:", err)
 			return
