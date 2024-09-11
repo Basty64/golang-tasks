@@ -1,4 +1,4 @@
-package task_02
+package main
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ func square(n int, resultChan chan int) {
 	resultChan <- n * n
 }
 
-func Check() {
+func main() {
 	numbers := [5]int{2, 4, 6, 8, 10}
 
 	fmt.Printf("Массив на входе: %d\n", numbers)
