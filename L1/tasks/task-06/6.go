@@ -27,7 +27,7 @@ func CxtTimeOut() {
 		for { //запускаем бесконечный цикл
 			select {
 			case <-time.Tick(time.Second): //каждую секунду
-				fmt.Println("tik..") // пишем в консоль
+				fmt.Println("wait") // пишем в консоль
 			case <-ctx.Done(): //как получили сигнал от ctx
 				break loop // прерываем цикл
 			}
@@ -37,6 +37,7 @@ func CxtTimeOut() {
 	}()
 	<-finishChannel //ждем сигнал о завершении
 }
+
 func CtxCancel() {
 	finishChannel := make(chan struct{})                    //канал для отслеживания завершения
 	ctx, cancel := context.WithCancel(context.Background()) //контекст с функцией отмены
@@ -46,9 +47,9 @@ func CtxCancel() {
 		for {
 			select {
 			case <-time.Tick(time.Second):
-				fmt.Println("..tic") //каждую секунду отправляем сообщение в stdout
+				fmt.Println("wait") //каждую секунду отправляем сообщение в stdout
 			case <-ctx.Done():
-				break loop2 //  получив сигнал от контекста выходим из цикла
+				break loop2 //получив сигнал от контекста выходим из цикла
 			}
 		}
 		fmt.Println("CtxCancel убил горутину")
@@ -58,6 +59,7 @@ func CtxCancel() {
 	cancel()                    //отправляем сигнал завершения контексту
 	<-finishChannel             //ждем сигнал завершения от горутины
 }
+
 func Timer() {
 	secondsBeforeKill := 5               //определяем время для горутины
 	finishChannel := make(chan struct{}) //канал для отслеживания заверешения горутины
@@ -67,7 +69,7 @@ func Timer() {
 		for {
 			select {
 			case <-time.Tick(time.Second): //каждую секунду
-				fmt.Println("..tic") //отправляем сообщение
+				fmt.Println("wait") //отправляем сообщение
 			case <-timer: //получив сигнал от таймера
 				break loop3 //прерываем цикл
 			}
@@ -75,8 +77,9 @@ func Timer() {
 		fmt.Println("Timer убил горутину")
 		finishChannel <- struct{}{} //отправляем сигнал о завершении горутины
 	}()
-	<-finishChannel //ждем закрыти горутины
+	<-finishChannel //ждем закрытия горутины
 }
+
 func Channel() {
 
 	killerChan := make(chan struct{}) //канал для отправки сигнала завершения
@@ -87,7 +90,7 @@ func Channel() {
 		for {
 			select {
 			case <-time.Tick(time.Second): //каждую секунду пишем в stdout
-				fmt.Println("tic..")
+				fmt.Println("wait")
 			case <-killerChan: //как только получили сигнал о завершении
 				break loop4 //выходим из цикла
 			}
@@ -99,13 +102,14 @@ func Channel() {
 	killerChan <- struct{}{}    //отправляем сигнал о завершении(отправляем пустую структуру так как она самая легкая)
 	<-finishChan                //ожидаем завершение горутины
 }
+
 func Mutex() {
 	var mtx sync.Mutex //объявляем экземпляр Mutex
 	go func() {        //запускаем горутину
 		for {
 			select {
 			case <-time.Tick(time.Second): //каждую секунду
-				fmt.Println("tic..") //пишем в консоль
+				fmt.Println("wait") //пишем в консоль
 
 			}
 			mtx.Lock()   //блокируем
@@ -124,7 +128,7 @@ func WaitGroup() {
 		for { //бесконечный цикл
 			select {
 			case <-time.Tick(time.Second): //каждую секунду
-				fmt.Println("tic..") //отправляем в консоль тик
+				fmt.Println("wait")
 
 			}
 			wg.Wait() //WaitGroup ожидает завершения, но так как в группе 0, горутин он не блокирует функцию

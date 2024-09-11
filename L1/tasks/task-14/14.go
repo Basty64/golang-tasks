@@ -2,42 +2,39 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"os/signal"
 	"reflect"
+	"syscall"
+	"time"
 )
 
 //Разработать программу, которая в рантайме способна определить тип переменной: int, string, bool, channel из переменной типа interface{}.
 
 func main() {
 
-	//1st variant
+	// Создаем канал для сигналов
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 
-	var v interface{} = 10
-	detectType(v)
-
-	v = "Hello, world!"
-	detectType(v)
-
-	v = true
-	detectType(v)
-
-	ch := make(chan int)
-	v = ch
-	detectType(v)
-
-	//2nd variant
-
-	arrOfTypes := []interface{}{'a', "hello", 5, 0.23, true, struct{}{}}
-	for _, typ := range arrOfTypes {
-		typ := RecognizeType(typ)
-		fmt.Printf("Value: %v, type: %s\n", typ, typ.Kind().String())
+	// Запускаем бесконечный цикл
+	for {
+		// Проверяем, не пришёл ли сигнал прерывания
+		select {
+		case <-c:
+			fmt.Println("Получен сигнал прерывания. Завершаем работу...")
+			return
+		default:
+			time.Sleep(3 * time.Second)
+			arrOfTypes := []interface{}{'a', "hello", 5, 0.23, true, struct{}{}}
+			for _, typ := range arrOfTypes {
+				typ := detectType(typ)
+				fmt.Printf("Value: %v, type: %s\n", typ, typ.Kind().String())
+			}
+		}
 	}
 }
 
-func detectType(v interface{}) {
-	t := reflect.TypeOf(v)
-	fmt.Printf("Тип переменной: %s\n", t.String())
-}
-
-func RecognizeType(unknown interface{}) reflect.Value {
+func detectType(unknown interface{}) reflect.Value {
 	return reflect.ValueOf(unknown)
 }

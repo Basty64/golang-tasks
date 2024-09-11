@@ -23,3 +23,27 @@ func main() {
 		fmt.Printf("Целевое значение %d не найдено в массиве\n", target)
 	}
 }
+
+//-------------------------------------------------------
+
+//Second variant
+
+var TestArray = []int{1, 3, 4, 6, 8, 10, 55, 56, 59, 70, 79, 81, 91, 10001}
+
+func NewBinarySearch(mas []int, search int) (bool, int) {
+
+	var index int
+
+	for mas[index] != search {
+		a := len(mas) / 2
+		if mas[a] > search {
+			mas = mas[:a]
+		} else if mas[a] < search {
+			mas = mas[a:]
+		} else {
+			fmt.Print("true", index)
+			return true, index
+		}
+	}
+	return false, 0
+}
